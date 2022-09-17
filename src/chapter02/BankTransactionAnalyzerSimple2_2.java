@@ -7,28 +7,22 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BankTransactionAnalyzerSimple2_2 {
 	private static final String RESOURCES = "src/chapter02/main/resources/";
 
 	public static void main(String[] args) throws IOException {
-		args = new String[1];
-		args[0] = "test.csv";
-		final Path path = Paths.get(RESOURCES + args[0]);
+		final String fileName = "test.csv";
+		final Path path = Paths.get(RESOURCES + fileName);
 		final List<String> lines = Files.readAllLines(path);
 
-		double total = 0d;
-		final DateTimeFormatter DATE_PATTERN = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-		for (String line : lines) {
-			final String[] columns = line.split(",");
-			final LocalDate date = LocalDate.parse(columns[0], DATE_PATTERN);
-			if (date.getMonth() == Month.JANUARY) {
-				final double amount = Double.parseDouble(columns[1]);
-				total += amount;
-			}
-		}
+		final BankStatementCSVParser bankStatementParser = new BankStatementCSVParser();
 
-		System.out.println("The total for all transactions in January is " + total);
+		final List<BankTransaction> bankTransactions = bankStatementParser.parseLinesFromCSV(lines);
+
+		System.out.println("The total for all transactions is " + calculateTotalAmount(bankTransactions));
+		System.out.println("Transactions in January " + selectInMonth(bankTransactions, Month.JANUARY));
 	}
 }
