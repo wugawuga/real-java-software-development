@@ -66,4 +66,4 @@
 - BankStatementAnalyzer 특정 구현에 종속되지 않게 리팩토링을 했다
 - 높은 결합도는 무조건 피하자
 
-![결합을 약하게!](/chapter02/main/resources/dependency.jpeg)
+![결합을 약하게!](./main/resources/dependency.jpeg)
