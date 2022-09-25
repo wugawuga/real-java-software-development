@@ -61,4 +61,16 @@ public class BankStatementProcessor {
 		}
 		return result;
 	}
+
+	// 거래 내역에 대한 조건들이 많을수록 코드가 복잡해짐
+	// 반복되는 로직과 비즈니스 로직이 결합되어 분리가 어려움
+	public List<BankTransaction> findTransactionsInMonthAndGreater(final Month month, final int amount) {
+		final List<BankTransaction> result = new ArrayList<>();
+		for (final BankTransaction bankTransaction : bankTransactions) {
+			if (bankTransaction.getDate().getMonth() == month && bankTransaction.getAmount() >= amount) {
+				result.add(bankTransaction);
+			}
+		}
+		return result;
+	}
 }
