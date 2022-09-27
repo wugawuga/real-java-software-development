@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Month;
 import java.util.List;
 
 import chapter02.BankStatementAnalyzer;
@@ -25,6 +26,8 @@ public class MainApplication {
 		final BankStatementProcessor bankStatementProcessor = new BankStatementProcessor(bankTransactions);
 
 		final List<BankTransaction> transactions =
-			bankStatementProcessor.findTransactions(new BankTransactionIsInFebruaryAndExpensive());
+			bankStatementProcessor.findTransactions(
+				bankTransaction -> bankTransaction.getDate().getMonth() == Month.FEBRUARY
+					&& bankTransaction.getAmount() >= 1_000);
 	}
 }
