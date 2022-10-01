@@ -1,5 +1,5 @@
 package chapter03;
 
 public interface Exporter {
-	void export(SummaryStatics summaryStatics);
+	String export(SummaryStatics summaryStatics);
 }
